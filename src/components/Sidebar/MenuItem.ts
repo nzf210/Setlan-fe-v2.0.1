@@ -39,7 +39,7 @@ function isActiveRoute(route: string): boolean {
 export const menuItems: MenuItem[] = [
   { name: 'Dashboard', icon: HomeIcon, path: '/dashboard' },
   {
-    name: 'Manajemen Barang',
+    name: 'Aset Lancar',
     icon: CogIcon,
     isActive: isActiveRoute('/manajmen'),
     submenu: [
@@ -66,35 +66,89 @@ export const menuItems: MenuItem[] = [
     ],
   },
   {
-    name: 'Transaksi',
+    name: 'Aset Tetap',
     icon: CubeIcon,
+    isActive: isActiveRoute('/aset-tetap'),
     submenu: [
       {
-        name: 'Penerimaan Barang',
-        path: '/transaksi/penerimaan-barang',
-        isActive:
-          isActiveRoute('/transaksi/penerimaan-barang') ||
-          isActiveRoute('/transaksi/penerimaan-barang/penerimaan-barang-baru') ||
-          isActiveRoute('/transaksi/penerimaan-barang/penerimaan-barang'),
-      },
-      {
-        name: 'Pengeluaran Barang',
+        name: 'Saldo Awal Barang',
         subSubMenu: [
           {
-            name: 'Pengeluaran Barang',
-            path: '/transaksi/Pengeluaran-Barang/pengeluaran-barang',
-            isActive: isActiveRoute('/transaksi/Pengeluaran-Barang/pengeluaran-barang'),
+            name: 'Tanah',
+            path: '/aset-tetap/tanah',
+            isActive: isActiveRoute('/aset-tetap/tanah'),
           },
           {
-            name: 'Pengeluaran Barang baru',
-            path: '/transaksi/Pengeluaran-Barang/pengeluaran-barang-baru',
-            isActive: isActiveRoute('/transaksi/Pengeluaran-Barang/pengeluaran-barang-baru'),
+            name: 'Peralatan Mesin',
+            path: '/aset-tetap/peralatan-mesin',
+            isActive: isActiveRoute('/aset-tetap/peralatan-mesin'),
+          },
+          {
+            name: 'Gedung dan Bangunan',
+            path: '/aset-tetap/gedung-dan-bangunan',
+            isActive: isActiveRoute('/aset-tetap/gedung-dan-bangunan'),
+          },
+          {
+            name: 'Jalan, Irigasi dan jaringan',
+            path: '/manajmen/kategori-barang',
+            isActive: isActiveRoute('/manajmen/items/kategori-barang'),
+          },
+          {
+            name: 'Aset Tetap Lainnya',
+            path: '/manajmen/kategori-barang',
+            isActive: isActiveRoute('/manajmen/items/kategori-barang'),
+          },
+          {
+            name: 'Aset Lain-lain',
+            path: '/manajmen/kategori-barang',
+            isActive: isActiveRoute('/manajmen/items/kategori-barang'),
+          },
+          {
+            name: 'Konstruksi Dalam Pengerjaan',
+            path: '/manajmen/kategori-barang',
+            isActive: isActiveRoute('/manajmen/items/kategori-barang'),
           },
         ],
       },
+      {
+        name: 'Penggunaan Awal',
+        path: '/manajmen/items',
+        isActive: isActiveRoute('/manajmen/items'),
+      },
+      {
+        name: 'Pemanfaatan Awal',
+        path: '/manajmen/items',
+        isActive: isActiveRoute('/manajmen/items'),
+      },
+      {
+        name: 'Pengamanan Awal',
+        path: '/manajmen/items',
+        isActive: isActiveRoute('/manajmen/items'),
+      },
     ],
   },
-  { name: 'Organisasi', icon: ArrowsRightLeftIcon, path: '/organisasi' },
+  {
+    name: 'Admin',
+    icon: ArrowsRightLeftIcon,
+    submenu: [
+      {
+        name: 'Daftar Ruangan',
+        path: '/admin/daftar-ruangan',
+      },
+      {
+        name: 'Daftar Unit',
+        path: '/admin/daftar-unit',
+      },
+      {
+        name: 'Daftar Satuan',
+        path: '/admin/daftar-satuan',
+      },
+      {
+        name: 'Daftar Penyedia',
+        path: '/admin/daftar-penyedia',
+      },
+    ],
+  },
   { name: 'Laporan', icon: BuildingOffice2Icon, path: '/laporan' },
   { name: 'Pengguna', icon: ChartBarIcon, path: '/pengguna' },
   { name: 'Pengaturan', icon: UserGroupIcon, path: '/pengaturan' },

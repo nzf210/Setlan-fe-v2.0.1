@@ -14,7 +14,7 @@ const title = ref('Inventory System')
         <div class="dropdown dropdown-end">
           <div tabindex="0" role="button" class="btn btn-ghost btn-circle" @click="() => { }">
             <i class="fas fa-bell"></i>
-            <span class="badge badge-sm badge-primary indicator-item">3</span>
+            <span class="badge badge-sm badge-warning indicator-item">3</span>
           </div>
           <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
             <li><a>3 items will expire soon</a></li>
