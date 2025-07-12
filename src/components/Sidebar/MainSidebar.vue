@@ -6,11 +6,11 @@
     </div>
 
     <!-- Konten utama dengan padding atas untuk mengkompensasi header fixed -->
-    <div class="flex flex-1 pt-16"> <!-- pt-16 = 4rem, sesuaikan dengan tinggi header -->
+    <div class="flex flex-1 pt-12"> <!-- pt-16 = 4rem, sesuaikan dengan tinggi header -->
       <!-- Sidebar -->
       <aside :class="[
-        'bg-base-200 transition-all duration-300 sticky top-16 flex flex-col',
-        isCollapsed ? 'w-20' : 'min-w-64 max-w-64'
+        'bg-base-200 transition-all duration-300 sticky top-12 flex flex-col',
+        isCollapsed ? 'w-20' : 'min-w-60 max-w-60'
       ]" style="height: calc(100vh - 4rem - 2.5rem);"> <!-- tinggi viewport - header - footer yang lebih kecil -->
 
         <!-- Header Sidebar -->

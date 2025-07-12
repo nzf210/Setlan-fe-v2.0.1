@@ -51,7 +51,7 @@ const router = createRouter({
 })
 
 // Middleware untuk autentikasi
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _, next) => {
   const isAuthenticated = localStorage.getItem('token') // Cek autentikasi
   const publicPages = ['/auth/login'] // Halaman publik
   const authRequired = !publicPages.includes(to.path) // Cek apakah halaman memerlukan autentikasi
