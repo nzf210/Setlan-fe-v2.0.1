@@ -7,37 +7,37 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/dashboard',
+      redirect: '/dashboard', // Redirect ke dashboard
     },
     {
-      path: '/auth',
+      path: '/auth', // Path auth
       component: AuthLayout,
       children: [
         {
-          path: 'login',
+          path: 'login', // Path relatif
           name: 'login',
           component: () => import('@/views/auth/LoginView.vue'),
         },
       ],
     },
     {
-      path: '/',
+      path: '/', // Path utama
       component: MainLayout,
       children: [
         {
-          path: '/dashboard',
+          path: 'dashboard', // Path relatif
           name: 'dashboard',
           component: () => import('@/views/Dashboard/MainDashboard.vue'),
         },
         {
-          path: '/manajmen/items',
+          path: 'manajmen/items', // Path relatif
           name: 'daftar-barang',
           component: () => import('@/views/aset/asetLancar/MainAsetLancar.vue'),
         },
       ],
     },
     {
-      path: '/:pathMatch(.*)*',
+      path: '/:pathMatch(.*)*', // Rute wildcard untuk not found
       component: AuthLayout,
       children: [
         {
@@ -50,16 +50,17 @@ const router = createRouter({
   ],
 })
 
+// Middleware untuk autentikasi
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = localStorage.getItem('token') // Contoh cek autentikasi
-  const publicPages = ['/auth/login']
-  const authRequired = !publicPages.includes(to.path)
+  const isAuthenticated = localStorage.getItem('token') // Cek autentikasi
+  const publicPages = ['/auth/login'] // Halaman publik
+  const authRequired = !publicPages.includes(to.path) // Cek apakah halaman memerlukan autentikasi
 
-  if (authRequired && isAuthenticated) {
-    return next('/auth/login')
+  if (authRequired && !isAuthenticated) {
+    return next('/auth/login') // Redirect ke login jika tidak terautentikasi
   }
 
-  next()
+  next() // Lanjutkan ke rute berikutnya
 })
 
 export default router

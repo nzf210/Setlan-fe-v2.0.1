@@ -1,7 +1,16 @@
 <script setup lang="ts">
+import router from '@/router'
 import { ref } from 'vue'
 
 const title = ref('Inventory System')
+
+const logout = () => {
+
+  localStorage.removeItem('token') // Hapus token dari localStorage
+
+  router.push('/auth/login') // Navigasi ke halaman login
+
+}
 </script>
 
 <template>
@@ -30,7 +39,7 @@ const title = ref('Inventory System')
           <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
             <li><a>Profile</a></li>
             <li><a>Settings</a></li>
-            <li><a>Logout</a></li>
+            <li><button @click="logout">Logout</button></li>
           </ul>
         </div>
       </div>

@@ -9,10 +9,12 @@
     <div class="flex flex-1 pt-16"> <!-- pt-16 = 4rem, sesuaikan dengan tinggi header -->
       <!-- Sidebar -->
       <aside :class="[
-        'bg-base-200 transition-all duration-300 h-screen sticky top-16', // sticky di bawah header
+        'bg-base-200 transition-all duration-300 sticky top-16 flex flex-col',
         isCollapsed ? 'w-20' : 'min-w-64 max-w-64'
-      ]">
-        <div class="p-4 flex justify-between items-center">
+      ]" style="height: calc(100vh - 4rem - 2.5rem);"> <!-- tinggi viewport - header - footer yang lebih kecil -->
+
+        <!-- Header Sidebar -->
+        <div class="p-4 flex justify-between items-center flex-shrink-0">
           <h2 v-if="!isCollapsed" class="text-lg font-bold">Menu</h2>
           <button @click="toggleSidebar" class="btn btn-ghost btn-sm">
             <component class="h-5 w-5 text-primary"
@@ -20,92 +22,96 @@
           </button>
         </div>
 
-        <ul class="menu menu-md px-4">
-          <li v-for="item in menuItems" :key="item.name" class="mb-1 relative group"
-            @mouseenter="handleMenuHover($event, item.name)" @mouseleave="handleMenuLeave">
-            <a :class="[
-              'flex items-center',
-              isCollapsed ? 'w-12' : '',
-              item.isActive ? 'bg-primary text-primary-content my-1' : '',
-            ]" @click="toggleMenu(item.name, $event, item.path)">
-              <!-- Ikon utama -->
-              <component :is="item.icon" class="h-5 w-5 flex-shrink-0" />
+        <!-- Menu Items - flex-1 untuk mengambil ruang yang tersisa -->
+        <div class="flex-1 overflow-y-auto">
+          <ul class="menu menu-md px-4">
+            <li v-for="item in menuItems" :key="item.name" class="mb-1 relative group"
+              @mouseenter="handleMenuHover($event, item.name)" @mouseleave="handleMenuLeave">
+              <a :class="[
+                'flex items-center',
+                isCollapsed ? 'w-12' : '',
+                item.isActive ? 'bg-primary text-primary-content my-1' : '',
+              ]" @click="toggleMenu(item.name, $event, item.path)">
+                <!-- Ikon utama -->
+                <component :is="item.icon" class="h-5 w-5 flex-shrink-0" />
 
-              <!-- Teks hanya ditampilkan saat tidak collapse -->
-              <span v-if="!isCollapsed" class="ml-2 flex-1" :class="{ 'font-bold': item.isActive }">
-                {{ item.name }}
-              </span>
+                <!-- Teks hanya ditampilkan saat tidak collapse -->
+                <span v-if="!isCollapsed" class="ml-2 flex-1" :class="{ 'font-bold': item.isActive }">
+                  {{ item.name }}
+                </span>
 
-              <!-- Ikon indikator submenu -->
-              <component v-if="item.submenu && !isCollapsed" class="h-4 w-4 ml-2"
-                :is="expandedMenus.includes(item.name) ? ChevronDownIcon : ChevronRightIcon" />
-            </a>
+                <!-- Ikon indikator submenu -->
+                <component v-if="item.submenu && !isCollapsed" class="h-4 w-4 ml-2"
+                  :is="expandedMenus.includes(item.name) ? ChevronDownIcon : ChevronRightIcon" />
+              </a>
 
-            <!-- Submenu (non-collapsed mode) -->
-            <ul v-if="item.submenu && expandedMenus.includes(item.name) && !isCollapsed" class="ml-4">
-              <li v-for="subItem in item.submenu" :key="subItem.name">
-                <a :class="[
-                  'flex justify-between',
-                  subItem.isActive ? 'bg-secondary text-secondary-content my-1' : '',
-                ]" @click="subItem.subSubMenu ?
-                  toggleSubMenu(`${item.name}-${subItem.name}`, subItem.path) :
-                  navigateTo(subItem.path || '')">
-                  <span :class="{ 'font-bold': subItem.isActive }">
-                    {{ subItem.name }}
-                  </span>
-                  <span v-if="subItem.subSubMenu" class="flex items-center">
-                    <component class="h-3 w-3"
-                      :is="expandedSubMenus[`${item.name}-${subItem.name}`] ? ChevronDownIcon : ChevronRightIcon" />
-                  </span>
-                </a>
+              <!-- Submenu (non-collapsed mode) -->
+              <ul v-if="item.submenu && expandedMenus.includes(item.name) && !isCollapsed" class="ml-4">
+                <li v-for="subItem in item.submenu" :key="subItem.name">
+                  <a :class="[
+                    'flex justify-between',
+                    subItem.isActive ? 'bg-secondary text-secondary-content my-1' : '',
+                  ]" @click="subItem.subSubMenu ?
+                    toggleSubMenu(`${item.name}-${subItem.name}`, subItem.path) :
+                    navigateTo(subItem.path || '')">
+                    <span :class="{ 'font-bold': subItem.isActive }">
+                      {{ subItem.name }}
+                    </span>
+                    <span v-if="subItem.subSubMenu" class="flex items-center">
+                      <component class="h-3 w-3"
+                        :is="expandedSubMenus[`${item.name}-${subItem.name}`] ? ChevronDownIcon : ChevronRightIcon" />
+                    </span>
+                  </a>
 
-                <!-- Sub-sub menu -->
-                <ul v-if="subItem.subSubMenu && expandedSubMenus[`${item.name}-${subItem.name}`]" class="ml-4">
-                  <li v-for="subSubItem in subItem.subSubMenu" :key="subSubItem.name">
-                    <a @click="navigateTo(subSubItem.path ?? '')" :class="[
-                      activePath === subSubItem.path ? 'bg-base-300 text-base-content' : '',
-                      { 'font-bold': activePath === subSubItem.path }
-                    ]">
-                      {{ subSubItem.name }}
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
+                  <!-- Sub-sub menu -->
+                  <ul v-if="subItem.subSubMenu && expandedSubMenus[`${item.name}-${subItem.name}`]" class="ml-4">
+                    <li v-for="subSubItem in subItem.subSubMenu" :key="subSubItem.name">
+                      <a @click="navigateTo(subSubItem.path ?? '')" :class="[
+                        activePath === subSubItem.path ? 'bg-base-300 text-base-content' : '',
+                        { 'font-bold': activePath === subSubItem.path }
+                      ]">
+                        {{ subSubItem.name }}
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
 
-        <!-- User Profile -->
-        <div class="absolute bottom-0 w-full p-4 border-t border-base-300">
-          <div class="flex items-center gap-2">
-            <div class="avatar">
+        <!-- User Profile - flex-shrink-0 untuk ukuran tetap -->
+        <div class="flex-shrink-0 p-4 border-t border-base-300">
+          <div :class="[
+            'flex items-center transition-all duration-300',
+            isCollapsed ? 'justify-center' : 'gap-3'
+          ]">
+            <div class="avatar flex-shrink-0">
               <div class="w-10 rounded-full">
                 <img src="https://api.dicebear.com/7.x/avataaars/svg" alt="User Avatar" />
               </div>
             </div>
-            <div v-if="!isCollapsed">
-              <p class="font-bold">John Doe</p>
-              <p class="text-sm text-base-content/70">Administrator</p>
+            <div v-if="!isCollapsed" class="flex-1 min-w-0">
+              <p class="font-bold text-sm truncate">John Doe</p>
+              <p class="text-xs text-base-content/70 truncate">Administrator</p>
             </div>
           </div>
         </div>
       </aside>
+
       <div class="flex-1 flex flex-col">
         <!-- Konten Halaman -->
-        <main class="flex-1 overflow-auto p-6">
+        <main class="flex-1 overflow-auto p-6" style="height: calc(100vh - 4rem - 2.5rem); margin-bottom: 2.5rem;">
           <slot></slot>
         </main>
       </div>
     </div>
-    <!-- Footer -->
-    <footer class="footer footer-center p-4 bg-base-300 text-base-content w-full">
-      <div>
-        <p>Copyright © 2025 - All rights reserved by Inventory System</p>
-      </div>
-    </footer>
+
+    <!-- Footer dengan padding yang lebih kecil -->
+    <MainFooter />
   </div>
 
-  <!-- Portal untuk hover menu -->
+  <!-- Portal untuk hover menu tetap sama -->
   <teleport to="body">
     <div v-if="isCollapsed && hoveredMenuDetails && hoveredMenu" ref="hoverMenuRef"
       class="fixed bg-base-200 shadow-xl rounded-box z-50 w-64 max-h-[80vh] overflow-y-auto border border-base-300"
@@ -148,10 +154,10 @@
       </ul>
     </div>
   </teleport>
-
 </template>
 
 <script setup lang="ts">
+// Script tetap sama
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { getActiveMenuItems } from '@/components/Sidebar/MenuItem';
@@ -162,6 +168,7 @@ import {
   ChevronDownIcon,
   ChevronRightIcon
 } from '@heroicons/vue/24/solid';
+import MainFooter from '@/components/Sidebar/MainFooter.vue';
 
 const router = useRouter()
 const route = useRoute()
@@ -195,7 +202,6 @@ const navigateTo = (path: string): void => {
 const updateExpandedState = () => {
   expandedMenus.value = [];
   expandedSubMenus.value = {};
-  // Logika untuk mengupdate menu yang diperluas
 };
 
 const toggleMenu = (menuName: string, event: MouseEvent, path?: string): void => {
@@ -312,19 +318,6 @@ watch(() => router.currentRoute.value.path, (newPath) => {
   display: none;
 }
 
-/* Perbaikan untuk avatar */
-.w-20 .avatar {
-  margin: 0 auto;
-}
-
-.w-20 .absolute.bottom-0 {
-  padding: 0.5rem;
-}
-
-.w-20 .absolute.bottom-0>div>div:last-child {
-  display: none;
-}
-
 /* Animasi untuk menu hover */
 .fixed {
   transition: opacity 0.2s ease, transform 0.2s ease;
@@ -344,25 +337,6 @@ watch(() => router.currentRoute.value.path, (newPath) => {
 /* Padding untuk mengkompensasi header */
 .pt-16 {
   padding-top: 4rem;
-  /* Sesuaikan dengan tinggi header */
-}
-
-/* Konten utama harus bisa discroll */
-.overflow-auto {
-  overflow: auto;
-  height: calc(100vh - 4rem - 4rem);
-  /* tinggi viewport - header - footer */
-}
-
-/* Perbaikan tambahan untuk footer */
-.flex-1.flex-col {
-  min-height: calc(100vh - 4rem);
-  /* tinggi viewport - header */
-}
-
-.flex-1.flex-col>main {
-  min-height: calc(100vh - 4rem - 4rem);
-  /* tinggi viewport - header - footer */
 }
 
 /* Pastikan footer selalu di bawah */
@@ -372,5 +346,24 @@ watch(() => router.currentRoute.value.path, (newPath) => {
   position: fixed;
   bottom: 0;
   z-index: 40;
+}
+
+/* Perbaikan untuk user profile */
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Responsive adjustments untuk footer yang lebih kecil */
+@media (max-height: 600px) {
+  aside {
+    height: calc(100vh - 4rem - 2rem) !important;
+  }
+
+  main {
+    height: calc(100vh - 4rem - 2rem) !important;
+    margin-bottom: 2rem !important;
+  }
 }
 </style>
