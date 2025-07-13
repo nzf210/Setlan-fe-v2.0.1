@@ -1,0 +1,23 @@
+# Gunakan versi yang valid dan tersedia
+# Versi spesifik yang tersedia
+FROM golang:1.25rc2-alpine3.22
+
+# Install dependensi build
+RUN apk add --no-cache git gcc musl-dev
+
+WORKDIR /app
+
+# Install air
+RUN go install github.com/cosmtrek/air@v1.49.0
+
+# Copy file mod terlebih dahulu
+COPY go.mod go.sum ./
+
+# Download dependensi
+RUN go mod download
+
+# Copy seluruh kode aplikasi
+COPY . .
+
+# Jalankan air
+CMD ["air", "-c", ".air.toml"]

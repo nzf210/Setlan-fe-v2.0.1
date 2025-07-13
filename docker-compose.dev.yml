@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  be:
+    build:
+      context: ./be
+      dockerfile: Dockerfile.dev
+    container_name: go_backend
+    volumes:
+      - ./be:/app  # Mount kode langsung
+    ports:
+      - "8080:8080"
+    env_file: .env
+    networks:
+      - app-network
+    depends_on:
+      - db
+
+  fe:
+    build:
+      context: ./fe
+      dockerfile: Dockerfile.dev
+    container_name: vue_frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./fe:/app # Mount for live-reloading code changes
+      - /app/node_modules # Isolate node_modules in the container
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  db:
+    image: postgres:15-alpine
+    env_file: .env
+    container_name: db_post
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres-data:

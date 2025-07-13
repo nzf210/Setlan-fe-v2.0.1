@@ -1,33 +1,32 @@
 # Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+/fe/logs
+/fe/*.log
+/fe/npm-debug.log*
+/fe/yarn-debug.log*
+/fe/yarn-error.log*
+/fe/pnpm-debug.log*
+/fe/lerna-debug.log*
 
-node_modules
-.DS_Store
-dist
-dist-ssr
-coverage
-*.local
+/fe/node_modules
+/fe/.DS_Store
+/fe/dist
+/fe/dist-ssr
+/fe/coverage
+/fe/*.local
 
-/cypress/videos/
-/cypress/screenshots/
-
+/fe//cypress/videos/
+/fe//cypress/screenshots/
 # Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+/fe/.vscode/*
+/fe/!.vscode/extensions.json
+/fe/.idea
+/fe/*.suo
+/fe/*.ntvs*
+/fe/*.njsproj
+/fe/*.sln
+/fe/*.sw?
 
-*.tsbuildinfo
+/fe/*.tsbuildinfo
 .env
 .env.local
 .env.development.local
@@ -35,4 +34,5 @@ coverage
 .env.production.local
 .env.*.local
 
-.vscode
+
+/be/tmp
