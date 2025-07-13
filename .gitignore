@@ -18,6 +18,7 @@
 /fe//cypress/screenshots/
 # Editor directories and files
 /fe/.vscode/*
+/fe/.github/*
 /fe/!.vscode/extensions.json
 /fe/.idea
 /fe/*.suo
@@ -25,6 +26,7 @@
 /fe/*.njsproj
 /fe/*.sln
 /fe/*.sw?
+/fe/src/**/*.copy.*
 
 /fe/*.tsbuildinfo
 .env

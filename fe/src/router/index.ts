@@ -1,6 +1,7 @@
 import AuthLayout from '@/components/layouts/AuthLayout.vue'
 import MainLayout from '@/components/layouts/MainLayout.vue'
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,11 +29,6 @@ const router = createRouter({
           path: 'dashboard', // Path relatif
           name: 'dashboard',
           component: () => import('@/views/Dashboard/MainDashboard.vue'),
-        },
-        {
-          path: 'manajmen/items', // Path relatif
-          name: 'daftar-barang',
-          component: () => import('@/views/aset/asetLancar/MainAsetLancar.vue'),
         },
       ],
     },

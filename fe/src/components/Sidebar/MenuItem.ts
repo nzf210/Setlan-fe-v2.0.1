@@ -11,273 +11,567 @@ import {
   // CheckBadgeIcon,
 } from '@heroicons/vue/24/outline'
 import { type FunctionalComponent } from 'vue'
-// Interface for menu items
-interface MenuItem {
-  name: string
-  icon: string | FunctionalComponent
-  submenu?: SubMenuItem[]
-  path?: string
-  isActive?: boolean
-}
 
-interface SubMenuItem {
-  name: string
-  subSubMenu?: SubSubMenuItem[]
-  path?: string
-  isActive?: boolean
+export interface MenuItem {
+  id: number
+  title: string
+  icon?: string | FunctionalComponent
+  route?: string | null
+  isActive: boolean
+  children: MenuItem[]
 }
-interface SubSubMenuItem {
-  name: string
-  path?: string
-  isActive?: boolean
-  subSubSubMenu?: SubSubSubMenuItem[]
-}
-interface SubSubSubMenuItem {
-  name: string
-  path?: string
-  isActive?: boolean
-}
-
 function isActiveRoute(route: string): boolean {
   return window.location.pathname === route
 }
 
 export const menuItems: MenuItem[] = [
-  { name: 'Dashboard', icon: HomeIcon, path: '/dashboard' },
   {
-    name: 'Aset Lancar',
+    id: 1,
+    title: 'Dashboard',
+    icon: HomeIcon,
+    route: '/dashboard',
+    isActive: isActiveRoute('/dashboard'),
+    children: []
+  },
+  {
+    id: 2,
+    title: 'Aset Lancar',
     icon: CogIcon,
     isActive: isActiveRoute('/aset-lancar'),
-    submenu: [
+    children: [
       {
-        name: 'Daftar Barang',
-        path: '/aset-lancar/daftar-barang',
-        isActive: isActiveRoute('/aset-lancar/daftar-barang'),
+        id: 1,
+        title: 'Saldo Awal',
+        route: '/aset-lancar/saldo-awal',
+        isActive: isActiveRoute('/aset-lancar/saldo-awal'),
+        children: [],
       },
       {
-        name: 'Kategori Barang',
-        subSubMenu: [
+        id: 2,
+        title: 'Saldo Masuk',
+        route: '/aset-lancar/saldo-masuk',
+        isActive: isActiveRoute('/aset-lancar/saldo-masuk'),
+        children: [],
+      },
+      {
+        id: 3,
+        title: 'Perintaan Barang',
+        isActive: isActiveRoute('/aset-lancar/permintaan-barang'),
+        children: [
           {
-            name: 'Kategori Barang',
-            path: '/aset-lancar/kategori-barang',
-            isActive: isActiveRoute('/aset-lancar/kategori-barang'),
+            id:1,
+            title: 'Entri Permintaan Barang',
+            route: '/aset-lancar/Entri-Permintaan-Barang',
+            isActive: isActiveRoute('/aset-lancar/Entri-Permintaan-Barang'),
+            children: [],
+          },
+          {
+            id: 1,
+            title: 'Usulan Permintaan Barang',
+            route: '/aset-lancar/Usulan-Permintaan-Barang',
+            isActive: isActiveRoute('/aset-lancar/Usulan-Permintaan-Barang'),
+            children: [],
+          },
+          {
+            id: 3,
+            title: 'Persetujuan Barang',
+            route: '/aset-lancar/Persetujuan-Barang',
+            isActive: isActiveRoute('/aset-lancar/Persetujuan-Barang'),
+            children: [],
+          },
+          {
+            id: 4,
+            title: 'BAST Penyaluran Barang',
+            route: '/aset-lancar/BAST-Penyaluran-Barang',
+            isActive: isActiveRoute('/aset-lancar/BAST-Penyaluran-Barang'),
+            children: [],
           },
         ],
       },
       {
-        name: 'Kondisi Barang',
-        path: '/aset-lancar/kondisi-barang',
-        isActive: isActiveRoute('/aset-lancar/kondisi-barang'),
+        id: 4,
+        title: 'Kartu Barang Persediaan',
+        route: '/aset-lancar/Kartu-Barang-Persediaan',
+        isActive: isActiveRoute('/aset-lancar/Kartu-Barang-Persediaan'),
+        children: [],
+      },
+      {
+        id: 5,
+        title:'Laporan',
+        isActive: isActiveRoute('/aset-lancar/Kartu-Barang-Persediaan'),
+        children: [
+          {
+            id: 1,
+            title: 'Laporan Pengadaan' ,
+            route: '/aset-lancar/Laporan-Pengadaan',
+            isActive: isActiveRoute('/aset-lancar/Laporan-Pengadaan'),
+            children: [],
+          },
+
+          {
+            id: 2,
+            title:'Laporan Penyaluran' ,
+            route: '/aset-lancar/Laporan-Penyaluran',
+            isActive: isActiveRoute('/aset-lancar/Laporan-penyaluran'),
+            children: [],
+          },
+          {
+            id: 3,
+            title:'Laporan Persediaan (IV.1)' ,
+            route: '/aset-lancar/Laporan-persediaan.iv.1',
+            isActive: isActiveRoute('/aset-lancar/Laporan-persediaan.iv.1'),
+            children: [],
+          },
+          {
+            id: 4,
+            title:'Laporan Persediaan Rusak (IV.I)' ,
+            route: '/aset-lancar/Laporan-Persediaan-Rusak.iv.i',
+            isActive: isActiveRoute('/aset-lancar/Laporan-Persediaan-Rusak.iv.i'),
+            children: [],
+          },
+          {
+            id: 5,
+            title:'Laporan Barang Milik Daerah (IV.L1)' ,
+            route: '/aset-lancar/Laporan-Barang-Milik-Daerah.IV.L1',
+            isActive: isActiveRoute('/aset-lancar/Laporan-Barang-Milik-Daerah.IV.L1'),
+            children: [],
+          },
+        ]
       },
     ],
   },
   {
-    name: 'Aset Tetap',
+    id: 3,
+    title: 'Aset Tetap',
     icon: CubeIcon,
     isActive: isActiveRoute('/aset-tetap'),
-    submenu: [
+    children: [
       {
-        name: 'Saldo Awal Barang',
-        subSubMenu: [
+        id: 1,
+        title: 'Saldo Awal Barang',
+        isActive: isActiveRoute('/aset-tetap'),
+        children: [
           {
-            name: 'Data Awal',
-            subSubSubMenu: [
-                        {
-                          name: 'Tanah',
-                          path: '/aset-tetap/tanah',
-                          isActive: isActiveRoute('/aset-tetap/tanah'),
-                        },
-                        {
-                          name: 'Peralatan Mesin',
-                          path: '/aset-tetap/peralatan-mesin',
-                          isActive: isActiveRoute('/aset-tetap/peralatan-mesin'),
-                        },
-                        {
-                          name: 'Gedung dan Bangunan',
-                          path: '/aset-tetap/gedung-dan-bangunan',
-                          isActive: isActiveRoute('/aset-tetap/gedung-dan-bangunan'),
-                        },
-                        {
-                          name: 'Jalan, Irigasi dan jaringan',
-                          path: '/manajmen/jalan-irigasi-jaringan',
-                          isActive: isActiveRoute('/manajmen/jalan-irigasi-jaringan'),
-                        },
-                        {
-                          name: 'Aset Tetap Lainnya',
-                          path: '/aset-tetap/aset-tetap-lainnya',
-                          isActive: isActiveRoute('/aset-tetap/aset-tetap-lainnya'),
-                        },
-                        {
-                          name: 'Aset Lain-lain',
-                          path: '/aset-tetap/aset-lain-lain',
-                          isActive: isActiveRoute('/aset-tetap/aset-lain-lain'),
-                        },
-                        {
-                          name: 'Konstruksi Dalam Pengerjaan',
-                          path: '/aset-tetap/konstruksi-dalam-pengerjaan',
-                          isActive: isActiveRoute('/aset-tetap/konstruksi-dalam-pengerjaan'),
-                        },
+            id: 1,
+            title: 'Data Awal',
+            isActive: isActiveRoute('/aset-tetap'),
+            children: [
+              {
+                id: 1,
+                title: 'Tanah',
+                route: '/aset-tetap/tanah',
+                isActive: isActiveRoute('/aset-tetap/tanah'),
+                children: [],
+              },
+              {
+                id: 2,
+                title: 'Peralatan Mesin',
+                route: '/aset-tetap/peralatan-mesin',
+                isActive: isActiveRoute('/aset-tetap/peralatan-mesin'),
+                children: [],
+              },
+              {
+                id: 3,
+                title: 'Gedung dan Bangunan',
+                route: '/aset-tetap/gedung-dan-bangunan',
+                isActive: isActiveRoute('/aset-tetap/gedung-dan-bangunan'),
+                children: [],
+              },
+              {
+                id: 4,
+                title: 'Jalan, Irigasi dan jaringan',
+                route: '/manajmen/jalan-irigasi-jaringan',
+                isActive: isActiveRoute('/manajmen/jalan-irigasi-jaringan'),
+                children: [],
+              },
+              {
+                id: 5,
+                title: 'Aset Tetap Lainnya',
+                route: '/aset-tetap/aset-tetap-lainnya',
+                isActive: isActiveRoute('/aset-tetap/aset-tetap-lainnya'),
+                children: [],
+              },
+              {
+                id: 6,
+                title: 'Aset Lain-lain',
+                route: '/aset-tetap/aset-lain-lain',
+                isActive: isActiveRoute('/aset-tetap/aset-lain-lain'),
+                children: [],
+              },
+              {
+                id: 7,
+                title: 'Konstruksi Dalam Pengerjaan',
+                route: '/aset-tetap/konstruksi-dalam-pengerjaan',
+                isActive: isActiveRoute('/aset-tetap/konstruksi-dalam-pengerjaan'),
+                children: [],
+              },
             ]
           },
           {
-            name: 'Penggunaan Awal',
-            path: '/pengunaan-awal',
+            id: 2,
+            title: 'Penggunaan Awal',
+            route: '/pengunaan-awal',
             isActive: isActiveRoute('/pengunaan-awal'),
+            children: [],
           },
           {
-            name: 'Pemanfaatan Awal',
-            path: '/pemanfaatan-awal',
+            id: 3,
+            title: 'Pemanfaatan Awal',
+            route: '/pemanfaatan-awal',
             isActive: isActiveRoute('/pemanfaatan-awal'),
+            children: [],
           },
           {
-            name: 'Pengamanan Awal',
-            path: '/pengamanan-awal',
+            id: 4,
+            title: 'Pengamanan Awal',
+            route: '/pengamanan-awal',
             isActive: isActiveRoute('/pengamanan-awal'),
+            children: [],
           },
         ],
       },
       {
-        name:'Inventarisasi',
-        subSubMenu: [
+        id: 2,
+        isActive: isActiveRoute('/aset-tetap/inventarisasi'),
+        title:'Inventarisasi',
+        children: [
           {
-            name:'Lembar Kerja Inventarisasi',
-            subSubSubMenu: [
-              {name: 'Tanah', path: '/aset-tetap/inventarisasi/lembar-kerja-inventarisasi/tanah', isActive: isActiveRoute('/lembar-kerja-inventarisasi/tanah')},
-              {name: 'Peralatan dan Mesin', path: '/aset-tetap/inventarisasi/lembar-kerja-inventarisasi/peralatan-dan-mesin', isActive: isActiveRoute('/aset-tetap/inventarisasi/lembar-kerja-inventarisasi/peralatan-dan-mesin')},
-              {name: 'Gedung dan Bangunan', path: '/aset-tetap/inventarisasi/lembar-kerja-inventarisasi/gedung-dan-bangunan', isActive: isActiveRoute('/aset-tetap/inventarisasi/lembar-kerja-inventarisasi/gedung-dan-bangunan')},
-              {name: 'Jalan, Irigasi dan Jaringan', path: '/aset-tetap/inventarisasi/lembar-kerja-inventarisasi/jalan-irigasi-dan-jaringan', isActive: isActiveRoute('/aset-tetap/inventarisasi/lembar-kerja-inventarisasi/jalan-irigasi-dan-jaringan')},
-              {name: 'Aset Tetap Lainnya', path: '/aset-tetap/inventarisasi/lembar-kerja-inventarisasi/aset-tetap-lainnya', isActive: isActiveRoute('/aset-tetap/inventarisasi/lembar-kerja-inventarisasi/aset-tetap-lainnya')},
+            id: 1,
+            title:'Lembar Kerja Inventarisasi',
+            isActive: isActiveRoute('/aset-tetap/inventarisasi/lembar-kerja-inventarisasi'),
+            children: [
+              {
+                id: 1,
+                title : 'Tanah',
+                route: '/aset-tetap/inventarisasi/lembar-kerja-inventarisasi/tanah',
+                isActive: isActiveRoute('/lembar-kerja-inventarisasi/tanah'),
+                children: [],
+              },
+              {
+                id: 2,
+                title: 'Peralatan dan Mesin',
+                route: '/aset-tetap/inventarisasi/lembar-kerja-inventarisasi/peralatan-dan-mesin',
+                isActive: isActiveRoute('/aset-tetap/inventarisasi/lembar-kerja-inventarisasi/peralatan-dan-mesin'),
+                children: [],
+              },
+              {
+                id: 3,
+                title: 'Gedung dan Bangunan',
+                route: '/aset-tetap/inventarisasi/lembar-kerja-inventarisasi/gedung-dan-bangunan',
+                isActive: isActiveRoute('/aset-tetap/inventarisasi/lembar-kerja-inventarisasi/gedung-dan-bangunan'),
+                children: []},
+              {
+                id: 4,
+                title: 'Jalan, Irigasi dan Jaringan',
+                route: '/aset-tetap/inventarisasi/lembar-kerja-inventarisasi/jalan-irigasi-dan-jaringan',
+                isActive: isActiveRoute('/aset-tetap/inventarisasi/lembar-kerja-inventarisasi/jalan-irigasi-dan-jaringan'),
+                children: []},
+              {
+                id: 5,
+                title: 'Aset Tetap Lainnya', route: '/aset-tetap/inventarisasi/lembar-kerja-inventarisasi/aset-tetap-lainnya',
+                isActive: isActiveRoute('/aset-tetap/inventarisasi/lembar-kerja-inventarisasi/aset-tetap-lainnya'),
+                children: []},
             ]
           },
           {
-            name:'Daftar Barang',
-            subSubSubMenu: [
-              {'name': 'Tanah', path: '/aset-tetap/inventarisasi/daftar-barang/tanah', isActive: isActiveRoute('/aset-tetap/inventarisasi/daftar-barang/tanah')},
-              {'name': 'Peralatan dan Mesin', path: '/aset-tetap/inventarisasi/daftar-barang/peralatan-dan-mesin', isActive: isActiveRoute('/aset-tetap/inventarisasi/daftar-barang/peralatan-dan-mesin')},
-              {'name': 'Gedung dan Bangunan', path: '/aset-tetap/inventarisasi/daftar-barang/gedung-dan-bangunan', isActive: isActiveRoute('/aset-tetap/inventarisasi/daftar-barang/gedung-dan-bangunan')},
-              {'name': 'Jalan, Irigasi dan Jaringan', path: '/aset-tetap/inventarisasi/daftar-barang/jalan-irigasi-dan-jaringan', isActive: isActiveRoute('/aset-tetap/inventarisasi/daftar-barang/jalan-irigasi-dan-jaringan')},
-              {'name': 'Aset Tetap Lainnya', path: '/aset-tetap/inventarisasi/daftar-barang/aset-tetap-lainnya', isActive: isActiveRoute('/aset-tetap/inventarisasi/daftar-barang/aset-tetap-lainnya')},
-              {'name': 'Aset Lain-Lain', path: '/aset-tetap/inventarisasi/daftar-barang/aset-lain-lain', isActive: isActiveRoute('/aset-tetap/inventarisasi/daftar-barang/aset-lain-lain')},
-              {'name': 'K D P', path: '/aset-tetap/inventarisasi/daftar-barang/k-d-p', isActive: isActiveRoute('/aset-tetap/inventarisasi/daftar-barang/k-d-p')},
+            id: 2,
+            title:'Daftar Barang',
+            isActive: isActiveRoute('/aset-tetap/inventarisasi/daftar-barang'),
+            children: [
+              {
+                id: 1,
+                title : 'Tanah',
+                route: '/aset-tetap/inventarisasi/daftar-barang/tanah',
+                isActive: isActiveRoute('/aset-tetap/inventarisasi/daftar-barang/tanah'),
+                children: [],
+              },
+              {
+                id: 2,
+                title: 'Peralatan dan Mesin',
+                route: '/aset-tetap/inventarisasi/daftar-barang/peralatan-dan-mesin',
+                isActive: isActiveRoute('/aset-tetap/inventarisasi/daftar-barang/peralatan-dan-mesin'),
+                children: [],
+              },
+              {
+                id: 3,
+                title: 'Gedung dan Bangunan',
+                route: '/aset-tetap/inventarisasi/daftar-barang/gedung-dan-bangunan',
+                isActive: isActiveRoute('/aset-tetap/inventarisasi/daftar-barang/gedung-dan-bangunan'),
+                children: [],
+              },
+              {
+                id: 4,
+                title: 'Jalan, Irigasi dan Jaringan',
+                route: '/aset-tetap/inventarisasi/daftar-barang/jalan-irigasi-dan-jaringan',
+                isActive: isActiveRoute('/aset-tetap/inventarisasi/daftar-barang/jalan-irigasi-dan-jaringan'),
+                children: [],
+              },
+              {
+                id: 5,
+                title: 'Aset Tetap Lainnya',
+                route: '/aset-tetap/inventarisasi/daftar-barang/aset-tetap-lainnya',
+                isActive: isActiveRoute('/aset-tetap/inventarisasi/daftar-barang/aset-tetap-lainnya'),
+                children: [],
+              },
+              {
+                id: 6,
+                title: 'Aset Lain-Lain',
+                route: '/aset-tetap/inventarisasi/daftar-barang/aset-lain-lain',
+                isActive: isActiveRoute('/aset-tetap/inventarisasi/daftar-barang/aset-lain-lain'),
+                children: [],
+              },
+              {
+                id: 7,
+                title: 'K D P',
+                route: '/aset-tetap/inventarisasi/daftar-barang/k-d-p',
+                isActive: isActiveRoute('/aset-tetap/inventarisasi/daftar-barang/k-d-p'),
+                children: [],
+              },
             ]
           },
           {
-            name:'Laporan Inventarisasi',
-            path: '/aset-tetap/inventarisasi/laporan-inventarisasi',
+            id: 3,
+            title:'Laporan Inventarisasi',
+            route: '/aset-tetap/inventarisasi/laporan-inventarisasi',
             isActive: isActiveRoute('/aset-tetap/inventarisasi/laporan-inventarisasi'),
+            children: []
           }
         ]
       }
     ],
   },
   {
-    name: 'Admin',
+    id: 4,
+    title: 'Admin',
     icon: ArrowsRightLeftIcon,
-    submenu: [
+    isActive: isActiveRoute('/admin'),
+    children: [
       {
-        name: 'Daftar Ruangan',
-        path: '/admin/daftar-ruangan',
+        id: 1,
+        isActive: isActiveRoute('/admin/daftar-ruangan'),
+        title: 'Daftar Ruangan',
+        route: '/admin/daftar-ruangan',
+        children: []
       },
       {
-        name: 'Daftar Unit',
-        path: '/admin/daftar-unit',
+        id: 2,
+        isActive: isActiveRoute('/admin/daftar-unit'),
+        title: 'Daftar Unit',
+        route: '/admin/daftar-unit',
+        children: []
       },
       {
-        name: 'Daftar Satuan',
-        path: '/admin/daftar-satuan',
+        id: 3,
+        isActive: isActiveRoute('/admin/daftar-satuan'),
+        title: 'Daftar Satuan',
+        route: '/admin/daftar-satuan',
+        children: []
       },
       {
-        name: 'Daftar Penyedia',
-        path: '/admin/daftar-penyedia',
+        id: 4,
+        isActive: isActiveRoute('/admin/daftar-penyedia'),
+        title: 'Daftar Penyedia',
+        route: '/admin/daftar-penyedia',
+        children: []
       },
     ],
   },
-  { name: 'pembukuan', icon: BuildingOffice2Icon
-    , submenu: [
+  {
+    id: 5,
+    title: 'Pembukuan',
+    icon: BuildingOffice2Icon,
+    isActive: isActiveRoute('/pembukuan'),
+    children: [
       {
-        name: 'Cara Perolehan',
-        subSubMenu: [
-          {name: 'Pengadaan BMD', subSubSubMenu: [
-            {name: 'Pengadaan', path: '/pembukuan/cara-perolehan-pengadaan-bmd/pengadaan', isActive: isActiveRoute('/pembukuan/cara-perolehan-pengadaan-bmd/pengadaan')},
-            {name: 'Atribusi', path: '/pembukuan/cara-perolehan-pengadaan-bmd/atribusi', isActive: isActiveRoute('/pembukuan/cara-perolehan-pengadaan-bmd/atribusi')},
-          ]},
-        ]
+        id: 1,
+        isActive: isActiveRoute('/pembukuan/cara-perolehan-pengadaan-bmd'),
+        title: 'Cara Perolehan',
+        children :
+          [
+            {
+              id: 1,
+              title: 'Pengadaan BMD',
+              isActive: isActiveRoute('/pembukuan/cara-perolehan-pengadaan-bmd'),
+              children: [
+                          {
+                            id: 1,
+                            title: 'Pengadaan',
+                            route: '/pembukuan/cara-perolehan-pengadaan-bmd/pengadaan',
+                            isActive: isActiveRoute('/pembukuan/cara-perolehan-pengadaan-bmd/pengadaan') ,             children: []
+                          },
+                          {
+                            id: 2,
+                            title: 'Atribusi',
+                            route: '/pembukuan/cara-perolehan-pengadaan-bmd/atribusi',
+                            isActive: isActiveRoute('/pembukuan/cara-perolehan-pengadaan-bmd/atribusi') ,             children: []
+                          },
+                        ]},
+            ]
+      },
+      {
+        /**
+         * Didalamnya Pengeluaran,Penerimaan Internal PB,Penerimaan Eksternal PB
+         * Pemanfaatan, Reklasifikasi, Koreksi, Penambahan Masa Manfaat / Penggabungan, Penyusutan/Amotisasi
+         * Pemeliharaan {Non Kapitasi {Pengadaan dan Pemeliharaan}},
+         * Pengamanan, Penghapusan
+         */
+        id: 2,
+        title: 'Pengelolaan BMD',
+        route: '/pembukuan/pengelolaan-bmd',
+        isActive: isActiveRoute('/pembukuan/pengelolaan-bmd'),
+        children: []
+      },
+      {
+        id: 3,
+        title: 'K I R',
+        route: '/pembukuan/k-i-r',
+        isActive: isActiveRoute('/pembukuan/kir'),
+        children: []
       }
     ]
   },
-  { name: 'Laporan', icon: RectangleGroupIcon, path: '/laporan' },
-  { name: 'Pengguna', icon: ChartBarIcon, path: '/pengguna' },
-  { name: 'Pengaturan', icon: UserGroupIcon, path: '/pengaturan' },
+  {
+    id: 6,
+    title: 'Laporan',
+    isActive: isActiveRoute('/laporan'),
+    icon: RectangleGroupIcon,
+    children: [
+    /** Didalamnya Pengadaan, Hibah, Perjanjian/Kontrak, Ketentuan Peraturan Per-UU, Putusan Pengadilan,
+     * DIvestasi, Hasil Inventarisasi, Hasil Tukar Menukar, Pembatalan Penghapusan
+     * Perolehan Lainnya, Gabungan Perolehan
+     */
+          {
+            id: 1,
+            title: 'Laporan Perolehan (IV.A)',
+            route: '/laporan/perolehan-iva',
+            isActive: isActiveRoute('/laporan/perolehan-iva'),
+            children: []
+          },
+
+    /** Didalamnya Laporan Penggunaan(IV.B) {Pengalihan / Penyerahan Status Penggunaan, penggunaan Sementara dan Dioperasikan Pihak Lain ,
+     *  Pengakhiran Sementara dan Dioperasonalkan Pihak Lain } ,Laporan Penerimaan Internal (IV.C), Laporan Pengeluaran Internal (IV.D),
+     *  Laporan Pemanfaatan (IV.E) {Pemanfaatan, Pengakhiran Pemanfaatan}, Laporan Reklasifikasi (IV.F), Laporan Koreksi (IV.G),
+     *  Laporan Penyusutan (IV.H), Laporan Pengamanan (IV.J) {Penggunaan/Pemakaian Peralatan Mesin, Penggunaan/Pemakaian Gedung dan Bangunan (Rumah Negara) },
+     *  Laporan Penghapusan (IV.K) {Penghapusan Pemidah Tanganan, Penghapusan Penyerahan/ pengalihan status penggunaan,
+     *  Penghapusan Ketentuan UUD, Penghapusan Putusan Pengadilan, Penghapusan Pemusnahan, Penghapusan Sebab Lain, Gabungan penghapusan) }
+     */
+            {
+              id: 2,
+              title: 'Laporan Perolehan (IV.B-K)',
+              route: '/laporan/perolehan-ivbk',
+              isActive: isActiveRoute('/laporan/perolehan-ivbk'),
+              children: []
+            },
+    /**
+     * Aset tetap (IV.L.2), Aset Lain (IV.L.3), Aset Lainnya (IV.L.4)
+     */
+              {
+                id: 3,
+                title: 'Laporan Barang Milik Daerah (IV.L)',
+                route: '/laporan/perolehan-ivk',
+                isActive: isActiveRoute('/laporan/perolehan-ivk'),
+                children: []
+              },
+              {
+                id: 4,
+                title: 'Daftar Barang',
+                isActive: isActiveRoute('/laporan/kir'),
+                children: [
+                      {
+                        id: 1,
+                        title : 'Daftar Penggunaan Sementara',
+                        route: '/laporan/daftar-barang/Daftar-Penggunaan-Sementara',
+                        isActive: isActiveRoute('/laporan/daftar-barang/Daftar-Penggunaan-Sementara'),
+                        children: []
+                      },
+                      {
+                        id: 2,
+                        title: 'Daftar Penggunaan Barang dioperasionalkan pihak lain',
+                        route: '/laporan/daftar-barang/Daftar-Penggunaan-Barang-dioperasionalkan-pihak-lain',
+                        isActive: isActiveRoute('/laporan/daftar-barang/Daftar-Penggunaan-Barang-dioperasionalkan-pihak-lain'),
+                        children: []
+                      },
+                      {
+                        id: 3,
+                        title: 'Daftar Pemanfaatan BMD',
+                        route: '/laporan/daftar-barang/Daftar-Pemanfaatan-BMD',
+                        isActive: isActiveRoute('/laporan/daftar-barang/Daftar-Pemanfaatan-BMD'),
+                        children: []
+                      },
+                      {
+                        id: 4,
+                        title: 'Daftar Barang Kuasa Pengguna Barang',
+                        route: '/laporan/daftar-barang/Daftar-Barang-Kuasa-Pengguna-Barang',
+                        isActive: isActiveRoute('/laporan/daftar-barang/Daftar-Barang-Kuasa-Pengguna-Barang'),
+                        children: []
+                      },
+                      {
+                        id: 5,
+                        title: 'Daftar Barang Pengguna Barang',
+                        route: '/laporan/daftar-barang/Daftar-Barang-Pengguna-Barang',
+                        isActive: isActiveRoute('/laporan/daftar-barang/Daftar-Barang-Pengguna-Barang'),
+                        children: []
+                      },
+                      {
+                        id: 6,
+                        title: 'Daftar Pengamanan BMD',
+                        route: '/laporan/daftar-barang/Daftar-Pengamanan-BMD',
+                        isActive: isActiveRoute('/laporan/daftar-barang/Daftar-Pengamanan-BMD'),
+                        children: []
+                      },
+                    ]
+            },
+            /**
+             * Tanah, Peralatan dan Mesin, Gedung dan Bangunan, Jalan, Irigasi dan Jaringan, Aset Tetap Lainnya, KDP
+             */
+            {
+              id: 5,
+              title: 'KIB Aset Tetap',
+              route: '/laporan/kib-aset-tetap',
+              isActive: isActiveRoute('/laporan/kib-aset-tetap'),
+              children: []},
+            /**
+             * kemitraan Pihak Ketiga , Lain Lain
+             * */
+            {
+              id: 6,
+              title: 'KIB Aset Lainnya',
+              route: '/laporan/kib-aset-lainnya',
+              isActive: isActiveRoute('/laporan/kib-aset-lainnya'),
+              children: []},
+            {
+              id: 7,
+              title: 'Cetak QR',
+              route: '/laporan/cetak-qr',
+              isActive: isActiveRoute('/laporan/cetak-qr'),
+              children: []},
+            {
+              id: 8,
+              title: 'Kartu Inventaris Ruangan',
+              route: '/laporan/Kartu-Inventaris-Ruangan',
+              isActive: isActiveRoute('/laporan/Kartu-Inventaris-Ruangan'),
+              children: []},
+            {
+              id: 9,
+              title: 'Berita Acara Rekonsilasi (V.1)',
+              route: '/laporan/Berita-Acara-Rekonsilasi.V.1)',
+              isActive: isActiveRoute('/laporan/Berita-Acara-Rekonsilasi.V.1'),
+              children: []},
+          ]},
+  {
+    id: 7,
+    isActive: isActiveRoute('/pengguna'),
+    title: 'Pengguna',
+    icon: ChartBarIcon,
+    route: '/pengguna',
+    children: []
+  },
+  {
+    id: 8,
+    title: 'Pengaturan',
+    icon: UserGroupIcon,
+    route: '/pengaturan',
+    isActive: isActiveRoute('/pengaturan'),
+    children: [],
+  },
 ]
-
-export function getActiveMenuItems(currentPath: string): MenuItem[] {
-  const isActive = (path?: string): boolean => {
-    if (!path) return false
-    return currentPath.startsWith(path)
-  }
-
-  // Level 4
-  const updateSubSubSubMenu = (subSubSubMenu: SubSubSubMenuItem[]): SubSubSubMenuItem[] => {
-    return subSubSubMenu.map((item) => {
-      const newItem = { ...item }
-      let itemActive = isActive(newItem.path)
-
-      // Tidak ada level lebih dalam dari 4, cukup periksa path langsung
-      newItem.isActive = itemActive
-      return newItem
-    })
-  }
-
-  // Level 3
-  const updateSubSubMenu = (subSubMenu: SubSubMenuItem[]): SubSubMenuItem[] => {
-    return subSubMenu.map((item) => {
-      const newItem = { ...item }
-      let itemActive = isActive(newItem.path)
-
-      if (newItem.subSubSubMenu) {
-        newItem.subSubSubMenu = updateSubSubSubMenu(newItem.subSubSubMenu)
-        if (newItem.subSubSubMenu.some(subSubSub => subSubSub.isActive))
-          itemActive = true
-      }
-
-      newItem.isActive = itemActive
-      return newItem
-    })
-  }
-
-  // Level 2
-  const updateSubMenu = (submenu: SubMenuItem[]): SubMenuItem[] => {
-    return submenu.map((sub) => {
-      const newSub = { ...sub }
-      let subActive = isActive(newSub.path)
-
-      if (newSub.subSubMenu) {
-        newSub.subSubMenu = updateSubSubMenu(newSub.subSubMenu)
-        if (newSub.subSubMenu.some(subSub => subSub.isActive))
-          subActive = true
-      }
-
-      newSub.isActive = subActive
-      return newSub
-    })
-  }
-
-  // Level 1
-  const updateMenu = (items: MenuItem[]): MenuItem[] => {
-    return items.map((item) => {
-      const newItem = { ...item }
-      let itemActive = isActive(newItem.path)
-
-      if (newItem.submenu) {
-        newItem.submenu = updateSubMenu(newItem.submenu)
-        if (newItem.submenu.some(sub => sub.isActive))
-          itemActive = true
-      }
-
-      newItem.isActive = itemActive
-      return newItem
-    })
-  }
-
-  return updateMenu(menuItems)
-}
