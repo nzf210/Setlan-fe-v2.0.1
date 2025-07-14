@@ -28,7 +28,7 @@ services:
       - /app/node_modules # Isolate node_modules in the container
     networks:
       - app-network
-    restart: unless-stopped
+    # restart: unless-stopped
 
   db:
     image: postgres:15-alpine

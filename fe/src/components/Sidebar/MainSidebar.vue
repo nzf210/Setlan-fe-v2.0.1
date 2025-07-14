@@ -18,9 +18,9 @@
 
     <!-- Sidebar -->
     <div class="drawer-side">
-      <label for="sidebar-toggle" class="drawer-overlay"></label>
-      <aside class="w-64 bg-base-200 text-base-content min-h-screen">
-        <ul class="menu p-4">
+      <label for="sidebar-toggle" class="drawer-overlay" />
+      <aside class="w-56 bg-base-200 text-base-content">
+        <ul class="menu p-1 my-1 w-full">
           <MenuItem v-for="item in items" :key="item.id" :item="item" />
         </ul>
       </aside>
