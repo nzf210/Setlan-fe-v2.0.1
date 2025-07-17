@@ -553,7 +553,7 @@ export const menuItems: MenuItem[] = [
             {
               id: 9,
               title: 'Berita Acara Rekonsilasi (V.1)',
-              route: '/laporan/Berita-Acara-Rekonsilasi.V.1)',
+              route: '/laporan/Berita-Acara-Rekonsilasi.V.1',
               isActive: isActiveRoute('/laporan/Berita-Acara-Rekonsilasi.V.1'),
               children: []},
           ]},
